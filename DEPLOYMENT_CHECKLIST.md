@@ -104,12 +104,17 @@ Health:   https://your-app.onrender.com/api/health
 2. **Database connection**: Verify MongoDB Atlas connection string
 3. **Build failures**: Check environment variables are set
 4. **WebSocket issues**: Render supports WebSocket connections by default
+5. **GitHub Actions CI failures**: 
+   - Ensure package-lock.json files are committed (not in .gitignore)
+   - Check that all environment variables for testing are set
+   - Verify Node.js version compatibility (18.x and 20.x supported)
 
 ### Support:
 - Check deployment logs in Render/Vercel dashboards
 - Verify environment variables are set correctly
 - Test API endpoints individually
 - Check network connectivity
+- Monitor GitHub Actions workflow runs for CI/CD status
 
 ---
 
