@@ -1,8 +1,8 @@
-name: Deploy to Production
+name: Build and Test
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, develop ]
   pull_request:
     branches: [ main ]
 
@@ -21,38 +21,33 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
     
     - name: Install backend dependencies
-      run: cd backend && npm ci
+      run: cd backend && npm install
     
-    - name: Install frontend dependencies  
-      run: cd frontend && npm ci
+    - name: Install frontend dependencies
+      run: cd frontend && npm install
     
     - name: Run backend tests
       run: cd backend && npm test
       env:
         NODE_ENV: test
         MONGODB_URI: mongodb://localhost:27017/taskboard_test
-        JWT_SECRET: test_secret_key_for_ci
+        JWT_SECRET: test_secret_key_for_ci_testing_only
     
     - name: Build frontend
       run: cd frontend && npm run build
       env:
         VITE_API_URL: http://localhost:5000/api
-
-  deploy:
-    needs: test
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+        VITE_APP_NAME: TaskBoard
     
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Deploy to Vercel
-      uses: amondnet/vercel-action@v25
-      with:
-        vercel-token: ${{ secrets.VERCEL_TOKEN }}
-        vercel-org-id: ${{ secrets.ORG_ID }}
-        vercel-project-id: ${{ secrets.PROJECT_ID }}
-        working-directory: ./frontend
+    - name: Check backend health endpoint
+      run: |
+        cd backend
+        npm start &
+        sleep 10
+        curl -f http://localhost:5000/api/health || exit 1
+      env:
+        NODE_ENV: test
+        MONGODB_URI: mongodb://localhost:27017/taskboard_test
+        JWT_SECRET: test_secret_key_for_ci_testing_only
