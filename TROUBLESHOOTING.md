@@ -18,13 +18,23 @@ git push
 
 ### Issue: "ERESOLVE could not resolve" dependency conflicts
 **Problem**: React version incompatibility with some packages (e.g., lucide-react not supporting React 19)
-**Solution**: 
+**Solution**: ✅ **RESOLVED**
 ```bash
-# Use legacy peer deps flag
+# Method 1: Use legacy peer deps flag (quick fix)
 cd frontend && npm install --legacy-peer-deps
 
-# Or downgrade React to 18.x (recommended)
-# Update frontend/package.json to use React 18.2.0
+# Method 2: Downgrade React to 18.x (recommended - already done)
+# Project now uses React 18.2.0 for maximum compatibility
+```
+
+### Issue: Frontend build fails after dependency changes
+**Problem**: Cached node_modules causing issues
+**Solution**:
+```bash
+cd frontend
+rm -rf node_modules package-lock.json
+npm install --legacy-peer-deps
+npm run build
 ```
 
 ## Render Deployment Issues
