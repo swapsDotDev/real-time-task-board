@@ -63,7 +63,7 @@ A web-based Real-Time Team Task Board application enabling teams to collaborate 
 - **Security**: Helmet, bcryptjs, CORS, express-rate-limit
 
 ### Frontend
-- **Framework**: React 19 with Vite
+- **Framework**: React 18 with Vite
 - **Styling**: Tailwind CSS
 - **Routing**: React Router DOM
 - **State Management**: Context API with useReducer
@@ -102,7 +102,7 @@ npm run dev
 ### 3. Frontend Setup
 ```bash
 cd ../frontend
-npm install
+npm install --legacy-peer-deps
 cp .env.example .env
 # Edit .env file to point to your backend API
 npm run dev

@@ -16,6 +16,17 @@ git push
 **Problem**: Workflow uses `npm ci` but lock files are missing
 **Solution**: Workflow updated to use `npm install` instead
 
+### Issue: "ERESOLVE could not resolve" dependency conflicts
+**Problem**: React version incompatibility with some packages (e.g., lucide-react not supporting React 19)
+**Solution**: 
+```bash
+# Use legacy peer deps flag
+cd frontend && npm install --legacy-peer-deps
+
+# Or downgrade React to 18.x (recommended)
+# Update frontend/package.json to use React 18.2.0
+```
+
 ## Render Deployment Issues
 
 ### Issue: Build fails with "Module not found"
