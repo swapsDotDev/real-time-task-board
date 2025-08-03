@@ -1,0 +1,74 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Environment files
+.env
+.env.local
+.env.development
+.env.production
+.env.prod
+
+# Build outputs
+dist/
+build/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+.nyc_output/
+
+# Docker
+.docker/
+docker-compose.override.yml
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Deployment
+.vercel
+.render
+
+# Temporary files
+*.tmp
+*.temp
+
+# SSL certificates (if stored locally)
+ssl/
+certificates/
+
+# Backup files
+mongo-backup/
+*.backup
+
+# Monitoring data
+prometheus_data/
+grafana_data/
+
+# Temporary files
+tmp/
+temp/

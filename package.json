@@ -1,0 +1,50 @@
+{
+  "name": "real-time-task-board",
+  "version": "1.0.0",
+  "description": "A real-time team task board application with React frontend and Node.js backend",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "start": "npm run start:production",
+    "start:production": "npm run build:frontend && concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "start:backend": "cd backend && npm start",
+    "start:frontend": "cd frontend && npm run preview",
+    "build": "npm run build:frontend",
+    "build:frontend": "cd frontend && npm run build",
+    "install:all": "npm run install:backend && npm run install:frontend",
+    "install:backend": "cd backend && npm install",
+    "install:frontend": "cd frontend && npm install --legacy-peer-deps",
+    "clean": "npm run clean:backend && npm run clean:frontend",
+    "clean:backend": "cd backend && rm -rf node_modules package-lock.json",
+    "clean:frontend": "cd frontend && rm -rf node_modules package-lock.json dist",
+    "test": "npm run test:backend && npm run test:frontend",
+    "test:backend": "cd backend && npm test",
+    "test:frontend": "cd frontend && npm test"
+  },
+  "keywords": [
+    "task-board",
+    "real-time",
+    "react",
+    "nodejs",
+    "socket.io",
+    "mongodb"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/real-time-task-board.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/real-time-task-board/issues"
+  },
+  "homepage": "https://github.com/yourusername/real-time-task-board#readme"
+}
