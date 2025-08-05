@@ -45,10 +45,18 @@ const allowedOrigins = [
   'http://localhost:4175',  // Vite preview server (alternative port)
   'http://localhost:3000',  // Alternative dev port
   process.env.FRONTEND_URL,  // Production frontend URL
+  // Add common Vercel patterns
+  /^https:\/\/.*\.vercel\.app$/,  // Any Vercel deployment
+  'https://real-time-task-board-e098iulss-swapsdotdevs-projects.vercel.app', // Specific Vercel URL
 ].filter(Boolean);
+
+console.log('🔧 CORS Debug - Allowed Origins:', allowedOrigins);
+console.log('🔧 CORS Debug - FRONTEND_URL env var:', process.env.FRONTEND_URL);
 
 app.use(cors({
   origin: (origin, callback) => {
+    console.log('🔧 CORS Debug - Incoming origin:', origin);
+    
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
     
@@ -57,9 +65,22 @@ app.use(cors({
       return callback(null, true);
     }
     
-    if (allowedOrigins.indexOf(origin) !== -1) {
+    // Check against allowed origins (including regex patterns)
+    const isAllowed = allowedOrigins.some(allowedOrigin => {
+      if (typeof allowedOrigin === 'string') {
+        return allowedOrigin === origin;
+      } else if (allowedOrigin instanceof RegExp) {
+        return allowedOrigin.test(origin);
+      }
+      return false;
+    });
+    
+    if (isAllowed) {
+      console.log('✅ CORS Debug - Origin allowed:', origin);
       callback(null, true);
     } else {
+      console.log('❌ CORS Debug - Origin rejected:', origin);
+      console.log('❌ CORS Debug - Available origins:', allowedOrigins);
       callback(new Error('Not allowed by CORS'));
     }
   },
