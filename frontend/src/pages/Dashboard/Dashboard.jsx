@@ -22,16 +22,6 @@ const Dashboard = () => {
     fetchStats();
   }, []);
 
-  // Show admin dashboard for admin users
-  if (isAdmin()) {
-    return <AdminMainPanel />;
-  }
-
-  // Show member task manager for members
-  if (user?.role === 'member') {
-    return <MemberTaskManager />;
-  }
-
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -40,6 +30,30 @@ const Dashboard = () => {
     );
   }
 
+  // Show admin dashboard for admin users
+  if (user?.role === 'admin') {
+    return <AdminMainPanel />;
+  }
+
+  // Show member dashboard for member users
+  if (user?.role === 'member') {
+    return <MemberTaskManager />;
+  }
+
+  // If user has no defined role or invalid role, show error
+  if (!user?.role) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-center">
+          <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">Role Not Assigned</h2>
+          <p className="text-gray-600 mb-4">Your account doesn't have a role assigned. Please contact an administrator.</p>
+        </div>
+      </div>
+    );
+  }
+
+  // For any other unknown role, show default view
   const statCards = [
     {
       title: 'Total Tasks',

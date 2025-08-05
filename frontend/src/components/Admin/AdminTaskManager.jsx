@@ -12,6 +12,8 @@ import {
   TableCellsIcon,
   Squares2X2Icon
 } from '@heroicons/react/24/outline';
+import { useNavigate } from 'react-router-dom';
+
 
 const AdminTaskManager = ({ tasks: initialTasks, users: initialUsers, onDataChange }) => {
   const { isAdmin } = useAuth();
@@ -23,6 +25,7 @@ const AdminTaskManager = ({ tasks: initialTasks, users: initialUsers, onDataChan
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [viewMode, setViewMode] = useState('table'); // 'table' or 'kanban'
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -219,7 +222,10 @@ const AdminTaskManager = ({ tasks: initialTasks, users: initialUsers, onDataChan
                 <span className="text-sm">Table</span>
               </button>
               <button
-                onClick={() => setViewMode('kanban')}
+                onClick={() => {
+                  setViewMode('kanban');
+                  navigate('/board');
+                }}
                 className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-colors ${
                   viewMode === 'kanban'
                     ? 'bg-white text-gray-900 shadow-sm'
@@ -229,6 +235,7 @@ const AdminTaskManager = ({ tasks: initialTasks, users: initialUsers, onDataChan
                 <Squares2X2Icon className="h-4 w-4" />
                 <span className="text-sm">Kanban</span>
               </button>
+
             </div>
             
             <button

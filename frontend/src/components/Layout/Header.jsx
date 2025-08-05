@@ -24,8 +24,8 @@ const Header = () => {
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-200">
-      <div className="px-6 py-4">
-        <div className="flex items-center justify-between">
+      <div className="px-6 py-4 h-[64px]">
+        <div className="flex items-center justify-between h-[50px]">
           {/* Search */}
           <div className="flex-1 max-w-md">
             <div className="relative">
@@ -33,8 +33,9 @@ const Header = () => {
               <input
                 type="text"
                 placeholder="Search tasks..."
-                className="input pl-10 w-full"
+                className="pl-10 pr-3 py-1.5 text-sm w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent"
               />
+
             </div>
           </div>
 

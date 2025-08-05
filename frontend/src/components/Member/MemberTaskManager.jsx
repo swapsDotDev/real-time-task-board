@@ -158,201 +158,207 @@ const MemberTaskManager = () => {
   }
 
   return (
-    <div className="p-6">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">My Assigned Tasks</h1>
-        <p className="text-gray-600">Tasks assigned to you - update status and add progress</p>
-      </div>
+    <div className="h-full overflow-hidden flex flex-col">
+      {/* Header Section - Fixed */}
+      <div className="flex-shrink-0 p-6 pb-0">
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold text-gray-900">My Assigned Tasks</h1>
+          <p className="text-gray-600">Tasks assigned to you - update status and add progress</p>
+        </div>
 
-      {/* Task Statistics */}
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
-        <div className="bg-white border rounded-lg p-4">
-          <div className="flex items-center space-x-2">
-            <ClockIcon className="h-5 w-5 text-blue-500" />
-            <div>
-              <p className="text-sm text-gray-600">Total</p>
-              <p className="text-2xl font-bold text-gray-900">{taskStats.total}</p>
+        {/* Task Statistics */}
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+          <div className="bg-white border rounded-lg p-4">
+            <div className="flex items-center space-x-2">
+              <ClockIcon className="h-5 w-5 text-blue-500" />
+              <div>
+                <p className="text-sm text-gray-600">Total</p>
+                <p className="text-2xl font-bold text-gray-900">{taskStats.total}</p>
+              </div>
+            </div>
+          </div>
+          <div className="bg-white border rounded-lg p-4">
+            <div className="flex items-center space-x-2">
+              <div className="h-5 w-5 bg-gray-500 rounded"></div>
+              <div>
+                <p className="text-sm text-gray-600">To Do</p>
+                <p className="text-2xl font-bold text-gray-900">{taskStats.todo}</p>
+              </div>
+            </div>
+          </div>
+          <div className="bg-white border rounded-lg p-4">
+            <div className="flex items-center space-x-2">
+              <PlayCircleIcon className="h-5 w-5 text-yellow-500" />
+              <div>
+                <p className="text-sm text-gray-600">In Progress</p>
+                <p className="text-2xl font-bold text-gray-900">{taskStats.inProgress}</p>
+              </div>
+            </div>
+          </div>
+          <div className="bg-white border rounded-lg p-4">
+            <div className="flex items-center space-x-2">
+              <CheckCircleIcon className="h-5 w-5 text-green-500" />
+              <div>
+                <p className="text-sm text-gray-600">Done</p>
+                <p className="text-2xl font-bold text-gray-900">{taskStats.done}</p>
+              </div>
+            </div>
+          </div>
+          <div className="bg-white border rounded-lg p-4">
+            <div className="flex items-center space-x-2">
+              <ExclamationTriangleIcon className="h-5 w-5 text-red-500" />
+              <div>
+                <p className="text-sm text-gray-600">Overdue</p>
+                <p className="text-2xl font-bold text-red-600">{taskStats.overdue}</p>
+              </div>
             </div>
           </div>
         </div>
-        <div className="bg-white border rounded-lg p-4">
-          <div className="flex items-center space-x-2">
-            <div className="h-5 w-5 bg-gray-500 rounded"></div>
-            <div>
-              <p className="text-sm text-gray-600">To Do</p>
-              <p className="text-2xl font-bold text-gray-900">{taskStats.todo}</p>
-            </div>
-          </div>
-        </div>
-        <div className="bg-white border rounded-lg p-4">
-          <div className="flex items-center space-x-2">
-            <PlayCircleIcon className="h-5 w-5 text-yellow-500" />
-            <div>
-              <p className="text-sm text-gray-600">In Progress</p>
-              <p className="text-2xl font-bold text-gray-900">{taskStats.inProgress}</p>
-            </div>
-          </div>
-        </div>
-        <div className="bg-white border rounded-lg p-4">
-          <div className="flex items-center space-x-2">
-            <CheckCircleIcon className="h-5 w-5 text-green-500" />
-            <div>
-              <p className="text-sm text-gray-600">Done</p>
-              <p className="text-2xl font-bold text-gray-900">{taskStats.done}</p>
-            </div>
-          </div>
-        </div>
-        <div className="bg-white border rounded-lg p-4">
-          <div className="flex items-center space-x-2">
-            <ExclamationTriangleIcon className="h-5 w-5 text-red-500" />
-            <div>
-              <p className="text-sm text-gray-600">Overdue</p>
-              <p className="text-2xl font-bold text-red-600">{taskStats.overdue}</p>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      {/* Filters */}
-      <div className="bg-white border rounded-lg p-4 mb-6">
-        <div className="flex flex-wrap gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Filter by Status</label>
-            <select
-              value={filterStatus}
-              onChange={(e) => setFilterStatus(e.target.value)}
-              className="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            >
-              <option value="">All Status</option>
-              <option value="To Do">To Do</option>
-              <option value="In Progress">In Progress</option>
-              <option value="Done">Done</option>
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Filter by Priority</label>
-            <select
-              value={filterPriority}
-              onChange={(e) => setFilterPriority(e.target.value)}
-              className="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            >
-              <option value="">All Priority</option>
-              <option value="Low">Low</option>
-              <option value="Medium">Medium</option>
-              <option value="High">High</option>
-            </select>
-          </div>
-          {(filterStatus || filterPriority) && (
-            <div className="flex items-end">
-              <button
-                onClick={() => {
-                  setFilterStatus('');
-                  setFilterPriority('');
-                }}
-                className="px-3 py-2 text-sm text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg"
+        {/* Filters */}
+        <div className="bg-white border rounded-lg p-4 mb-6">
+          <div className="flex flex-wrap gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Filter by Status</label>
+              <select
+                value={filterStatus}
+                onChange={(e) => setFilterStatus(e.target.value)}
+                className="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
-                Clear Filters
-              </button>
+                <option value="">All Status</option>
+                <option value="To Do">To Do</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Done">Done</option>
+              </select>
             </div>
-          )}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Filter by Priority</label>
+              <select
+                value={filterPriority}
+                onChange={(e) => setFilterPriority(e.target.value)}
+                className="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              >
+                <option value="">All Priority</option>
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+              </select>
+            </div>
+            {(filterStatus || filterPriority) && (
+              <div className="flex items-end">
+                <button
+                  onClick={() => {
+                    setFilterStatus('');
+                    setFilterPriority('');
+                  }}
+                  className="px-3 py-2 text-sm text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg"
+                >
+                  Clear Filters
+                </button>
+              </div>
+            )}
+          </div>
         </div>
+
+        {error && (
+          <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+            <p className="text-red-700">{error}</p>
+            <button 
+              onClick={() => setError(null)}
+              className="mt-2 text-red-600 hover:text-red-800"
+            >
+              Dismiss
+            </button>
+          </div>
+        )}
       </div>
 
-      {error && (
-        <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-          <p className="text-red-700">{error}</p>
-          <button 
-            onClick={() => setError(null)}
-            className="mt-2 text-red-600 hover:text-red-800"
-          >
-            Dismiss
-          </button>
-        </div>
-      )}
-
-      {assignedTasks.length === 0 ? (
-        <div className="bg-gray-50 border border-gray-200 rounded-lg p-8 text-center">
-          <ClockIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No tasks assigned</h3>
-          <p className="text-gray-600">You don't have any tasks assigned to you yet.</p>
-        </div>
-      ) : (
-        <div className="grid gap-6">
-          {assignedTasks.map((task) => (
-            <div key={task._id} className="bg-white border rounded-lg p-6 hover:shadow-md transition-shadow">
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-gray-900">{task.title}</h3>
-                  <p className="text-gray-600 mt-1">{task.description}</p>
-                </div>
-                <div className="flex items-center space-x-2 ml-4">
-                  <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(task.status)}`}>
-                    {task.status}
-                  </span>
-                  <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getPriorityColor(task.priority)}`}>
-                    {task.priority}
-                  </span>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 text-sm text-gray-600">
-                <div>
-                  <span className="font-medium">Created by:</span> {task.created_by?.name}
-                </div>
-                <div>
-                  <span className="font-medium">Due date:</span> 
-                  {task.due_date ? (
-                    <span className={isOverdue(task.due_date, task.status) ? 'text-red-600 font-medium' : ''}>
-                      {new Date(task.due_date).toLocaleDateString()}
-                      {isOverdue(task.due_date, task.status) && ' (Overdue)'}
+      {/* Scrollable Content Area */}
+      <div className="flex-1 overflow-y-auto px-6 pb-6">
+        {assignedTasks.length === 0 ? (
+          <div className="bg-gray-50 border border-gray-200 rounded-lg p-8 text-center">
+            <ClockIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-gray-900 mb-2">No tasks assigned</h3>
+            <p className="text-gray-600">You don't have any tasks assigned to you yet.</p>
+          </div>
+        ) : (
+          <div className="space-y-6">
+            {assignedTasks.map((task) => (
+              <div key={task._id} className="bg-white border rounded-lg p-6 hover:shadow-md transition-shadow">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-gray-900">{task.title}</h3>
+                    <p className="text-gray-600 mt-1">{task.description}</p>
+                  </div>
+                  <div className="flex items-center space-x-2 ml-4">
+                    <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(task.status)}`}>
+                      {task.status}
                     </span>
-                  ) : (
-                    'No due date'
-                  )}
-                </div>
-                <div>
-                  <span className="font-medium">Estimated:</span> {task.estimatedHours || 0}h
-                  {task.actualHours && ` | Actual: ${task.actualHours}h`}
-                </div>
-              </div>
-
-              {task.tags && task.tags.length > 0 && (
-                <div className="mb-4">
-                  <div className="flex flex-wrap gap-2">
-                    {task.tags.map((tag, index) => (
-                      <span key={index} className="inline-flex px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full">
-                        {tag}
-                      </span>
-                    ))}
+                    <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getPriorityColor(task.priority)}`}>
+                      {task.priority}
+                    </span>
                   </div>
                 </div>
-              )}
 
-              <div className="flex items-center justify-between pt-4 border-t">
-                <div className="text-sm text-gray-500">
-                  Last updated: {new Date(task.updatedAt).toLocaleDateString()}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 text-sm text-gray-600">
+                  <div>
+                    <span className="font-medium">Created by:</span> {task.created_by?.name}
+                  </div>
+                  <div>
+                    <span className="font-medium">Due date:</span> 
+                    {task.due_date ? (
+                      <span className={isOverdue(task.due_date, task.status) ? 'text-red-600 font-medium' : ''}>
+                        {new Date(task.due_date).toLocaleDateString()}
+                        {isOverdue(task.due_date, task.status) && ' (Overdue)'}
+                      </span>
+                    ) : (
+                      'No due date'
+                    )}
+                  </div>
+                  <div>
+                    <span className="font-medium">Estimated:</span> {task.estimatedHours || 0}h
+                    {task.actualHours && ` | Actual: ${task.actualHours}h`}
+                  </div>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <button
-                    onClick={() => openProgressModal(task)}
-                    className="flex items-center space-x-1 px-3 py-2 text-sm text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg transition-colors"
-                  >
-                    <ChatBubbleLeftIcon className="h-4 w-4" />
-                    <span>Add Progress</span>
-                  </button>
-                  <button
-                    onClick={() => openEditModal(task)}
-                    className="flex items-center space-x-1 px-3 py-2 text-sm text-green-600 hover:text-green-800 hover:bg-green-50 rounded-lg transition-colors"
-                  >
-                    <PencilIcon className="h-4 w-4" />
-                    <span>Update Task</span>
-                  </button>
+
+                {task.tags && task.tags.length > 0 && (
+                  <div className="mb-4">
+                    <div className="flex flex-wrap gap-2">
+                      {task.tags.map((tag, index) => (
+                        <span key={index} className="inline-flex px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <div className="flex items-center justify-between pt-4 border-t">
+                  <div className="text-sm text-gray-500">
+                    Last updated: {new Date(task.updatedAt).toLocaleDateString()}
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <button
+                      onClick={() => openProgressModal(task)}
+                      className="flex items-center space-x-1 px-3 py-2 text-sm text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg transition-colors"
+                    >
+                      <ChatBubbleLeftIcon className="h-4 w-4" />
+                      <span>Add Progress</span>
+                    </button>
+                    <button
+                      onClick={() => openEditModal(task)}
+                      className="flex items-center space-x-1 px-3 py-2 text-sm text-green-600 hover:text-green-800 hover:bg-green-50 rounded-lg transition-colors"
+                    >
+                      <PencilIcon className="h-4 w-4" />
+                      <span>Update Task</span>
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
+      </div>
 
       {/* Edit Task Modal */}
       {showEditModal && selectedTask && (
