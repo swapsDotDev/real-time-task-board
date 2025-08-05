@@ -31,9 +31,11 @@ Vercel build fails with: `sh: line 1: cd: frontend: No such file or directory`
 Go to **Settings** → **Environment Variables** and add:
 
 ```env
-VITE_API_URL=https://your-render-backend.onrender.com/api
+VITE_API_URL=https://real-time-task-board-pqql.onrender.com/api
 VITE_APP_NAME=TaskBoard
 ```
+
+**🎯 IMPORTANT**: Use your actual Render backend URL: `https://real-time-task-board-pqql.onrender.com/api`
 
 ### **Step 5: Deploy**
 1. Click **Deployments** tab
