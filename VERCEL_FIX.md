@@ -35,7 +35,9 @@ VITE_API_URL=https://real-time-task-board-pqql.onrender.com/api
 VITE_APP_NAME=TaskBoard
 ```
 
-**🎯 IMPORTANT**: Use your actual Render backend URL: `https://real-time-task-board-pqql.onrender.com/api`
+**🚨 CRITICAL**: Make sure the URL ends with `/api` - this is required for proper routing!
+
+**Current Error**: If you see 404 errors, it means the `/api` suffix is missing from `VITE_API_URL`
 
 ### **Step 5: Deploy**
 1. Click **Deployments** tab
