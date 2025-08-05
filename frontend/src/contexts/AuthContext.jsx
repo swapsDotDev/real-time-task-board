@@ -177,6 +177,20 @@ export const AuthProvider = ({ children }) => {
     loadUser();
   }, []);
 
+  // Handle WebSocket authentication failures
+  useEffect(() => {
+    const handleAuthFailure = () => {
+      console.error('WebSocket authentication failed, forcing logout');
+      logout();
+    };
+
+    socketService.on('authenticationFailed', handleAuthFailure);
+
+    return () => {
+      socketService.off('authenticationFailed', handleAuthFailure);
+    };
+  }, []);
+
   // Login function
   const login = async (credentials) => {
     try {

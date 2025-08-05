@@ -13,6 +13,9 @@ class WebSocketService {
       return this.socket;
     }
 
+    // Store current token for reconnection attempts
+    this.currentToken = token;
+
     // Clean up any existing connection
     if (this.socket) {
       this.socket.close();
@@ -39,9 +42,14 @@ class WebSocketService {
       console.log('❌ WebSocket disconnected:', event.code, event.reason);
       this.isConnected = false;
       
-      // Only reconnect if it wasn't a clean close (1000) or authentication failure (1008)
-      if (event.code !== 1000 && event.code !== 1008) {
-        this.handleReconnect(token);
+      // Handle different close codes
+      if (event.code === 1008) {
+        // Authentication failure - token revoked or invalid
+        console.error('🚫 WebSocket authentication failed - token may be revoked');
+        this.handleAuthenticationFailure();
+      } else if (event.code !== 1000) {
+        // Not a clean close, attempt reconnection
+        this.handleReconnect();
       }
     };
 
@@ -63,17 +71,38 @@ class WebSocketService {
     return this.socket;
   }
 
-  handleReconnect(token) {
+  handleReconnect() {
     if (this.reconnectAttempts < this.maxReconnectAttempts) {
       this.reconnectAttempts++;
       console.log(`Attempting to reconnect... (${this.reconnectAttempts}/${this.maxReconnectAttempts})`);
       
       setTimeout(() => {
-        this.connect(token);
+        // Get fresh token from localStorage
+        const freshToken = localStorage.getItem('token');
+        if (freshToken) {
+          this.connect(freshToken);
+        } else {
+          console.error('No token available for reconnection');
+          this.handleAuthenticationFailure();
+        }
       }, this.reconnectInterval);
     } else {
       console.error('Max reconnection attempts reached');
+      this.handleAuthenticationFailure();
     }
+  }
+
+  handleAuthenticationFailure() {
+    console.error('🚫 WebSocket authentication failed - clearing local data');
+    
+    // Emit authentication failure event
+    this.handleMessage({
+      type: 'authenticationFailed',
+      data: { message: 'WebSocket authentication failed, please login again' }
+    });
+
+    // Clear the connection
+    this.disconnect();
   }
 
   handleMessage(message) {
@@ -120,6 +149,20 @@ class WebSocketService {
       }));
     } else {
       console.warn('WebSocket is not connected');
+    }
+  }
+
+  // Method to update token for existing connection
+  updateToken(newToken) {
+    if (newToken && newToken !== this.currentToken) {
+      console.log('🔄 Updating WebSocket token');
+      this.currentToken = newToken;
+      
+      // Reconnect with new token if currently connected
+      if (this.isConnected || this.socket) {
+        this.disconnect();
+        this.connect(newToken);
+      }
     }
   }
 

@@ -23,6 +23,7 @@ class WebSocketService {
         const token = query.token;
         
         if (!token) {
+          console.error('❌ WebSocket connection rejected: No token provided');
           ws.close(1008, 'Authentication token required');
           return;
         }
@@ -32,6 +33,7 @@ class WebSocketService {
         const user = await User.findById(decoded.userId).select('-password');
         
         if (!user || !user.isActive) {
+          console.error(`❌ WebSocket connection rejected: Invalid user (${decoded.userId})`);
           ws.close(1008, 'Invalid or inactive user');
           return;
         }
@@ -40,8 +42,16 @@ class WebSocketService {
         req.user = user;
         this.handleConnection(ws, req);
       } catch (error) {
-        console.error('WebSocket authentication failed:', error);
-        ws.close(1008, 'Authentication failed');
+        console.error('❌ WebSocket authentication failed:', error.message);
+        
+        // Send more specific error messages
+        if (error.message.includes('revoked')) {
+          ws.close(1008, 'Token has been revoked - please login again');
+        } else if (error.message.includes('expired')) {
+          ws.close(1008, 'Token has expired - please refresh');
+        } else {
+          ws.close(1008, 'Authentication failed');
+        }
       }
     });
 

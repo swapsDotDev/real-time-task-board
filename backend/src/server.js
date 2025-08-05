@@ -14,6 +14,25 @@ import websocketService from './services/websocketService.js';
 // Load environment variables
 dotenv.config();
 
+// Validate critical environment variables
+if (!process.env.JWT_SECRET) {
+  console.error('❌ CRITICAL: JWT_SECRET environment variable is not set!');
+  process.exit(1);
+}
+
+if (process.env.JWT_SECRET.length < 32) {
+  console.error('❌ CRITICAL: JWT_SECRET is too short! Must be at least 32 characters.');
+  process.exit(1);
+}
+
+if (!process.env.MONGODB_URI) {
+  console.error('❌ CRITICAL: MONGODB_URI environment variable is not set!');
+  process.exit(1);
+}
+
+console.log('✅ Environment variables validated');
+console.log(`🔐 JWT_SECRET configured (${process.env.JWT_SECRET.substring(0, 8)}...)`);
+
 // Connect to MongoDB
 connectDB();
 
@@ -106,8 +125,17 @@ app.get('/api/health', (req, res) => {
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV,
     jwtConfigured: !!process.env.JWT_SECRET,
+    jwtLength: process.env.JWT_SECRET ? process.env.JWT_SECRET.length : 0,
+    jwtPrefix: process.env.JWT_SECRET ? process.env.JWT_SECRET.substring(0, 8) + '...' : 'Not set',
     mongoConfigured: !!process.env.MONGODB_URI,
-    frontendUrl: process.env.FRONTEND_URL || 'Not set'
+    frontendUrl: process.env.FRONTEND_URL || 'Not set',
+    corsOrigins: [
+      'http://localhost:5173',
+      process.env.FRONTEND_URL,
+      /^https:\/\/.*\.vercel\.app$/
+    ].filter(Boolean).map(origin => 
+      origin instanceof RegExp ? origin.toString() : origin
+    )
   });
 });
 
