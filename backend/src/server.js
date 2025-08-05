@@ -8,6 +8,7 @@ import connectDB from './config/database.js';
 import authRoutes from './routes/auth.js';
 import taskRoutes from './routes/tasks.js';
 import userRoutes from './routes/users.js';
+import adminSetupRoutes from './routes/admin-setup.js';
 import websocketService from './services/websocketService.js';
 
 // Load environment variables
@@ -96,6 +97,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/auth', authRoutes);
 app.use('/api/tasks', taskRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/admin', adminSetupRoutes);  // One-time admin creation
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
