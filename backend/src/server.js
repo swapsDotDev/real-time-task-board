@@ -104,7 +104,10 @@ app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'OK', 
     timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV 
+    environment: process.env.NODE_ENV,
+    jwtConfigured: !!process.env.JWT_SECRET,
+    mongoConfigured: !!process.env.MONGODB_URI,
+    frontendUrl: process.env.FRONTEND_URL || 'Not set'
   });
 });
 
