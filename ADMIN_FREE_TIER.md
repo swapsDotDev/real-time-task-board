@@ -29,8 +29,8 @@ curl -X POST https://real-time-task-board-pqql.onrender.com/api/admin/create-fir
   -H "Content-Type: application/json" \
   -d '{
     "name": "Admin User",
-    "email": "admin@taskboard.com", 
-    "password": "AdminPass123!"
+    "email": "your-admin@example.com", 
+    "password": "YourSecurePassword123!"
   }'
 ```
 
@@ -41,7 +41,7 @@ curl -X POST https://real-time-task-board-pqql.onrender.com/api/admin/create-fir
   "admin": {
     "id": "...",
     "name": "Admin User",
-    "email": "admin@taskboard.com",
+    "email": "your-admin@example.com",
     "role": "admin",
     "createdAt": "2025-08-05T08:00:00.000Z"
   }
@@ -50,8 +50,8 @@ curl -X POST https://real-time-task-board-pqql.onrender.com/api/admin/create-fir
 
 ### **Step 4: Test Login**
 Go to your frontend and login with:
-- **Email**: `admin@taskboard.com`
-- **Password**: `AdminPass123!`
+- **Email**: `your-admin@example.com`
+- **Password**: `YourSecurePassword123!`
 
 ---
 
@@ -60,7 +60,7 @@ Go to your frontend and login with:
 ### **Step 1: Register as Normal User**
 1. Go to your frontend: `https://real-time-task-board-e098iulss-swapsdotdevs-projects.vercel.app`
 2. Click "Register"
-3. Create account with email: `admin@taskboard.com`
+3. Create account with email: `your-admin@example.com`
 
 ### **Step 2: Use MongoDB Atlas Dashboard**
 1. Go to [MongoDB Atlas](https://cloud.mongodb.com)
@@ -82,8 +82,8 @@ Go to your frontend and login with:
 ```env
 CREATE_ADMIN_ON_STARTUP=true
 ADMIN_NAME=Admin User
-ADMIN_EMAIL=admin@taskboard.com
-ADMIN_PASSWORD=AdminPass123!
+ADMIN_EMAIL=your-admin@example.com
+ADMIN_PASSWORD=YourSecurePassword123!
 ```
 
 This would require modifying the server.js to check these variables on startup.

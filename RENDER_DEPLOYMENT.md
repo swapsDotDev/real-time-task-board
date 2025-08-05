@@ -1,6 +1,28 @@
-# 🚀 RENDER BACKEND DEPLOYMENT GUIDE
+# 🚀 RENDER BACKEND DEPLOYMEN```env
+NOAfter service creation, go to **Environment** tab and add:
 
-## Step-by-Step Deployment Process
+```env
+NODE_ENV=production
+MONGODB_URI=mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@YOUR_CLUSTER.mongodb.net/taskboard?retryWrites=true&w=majority&appName=Cluster0
+JWT_SECRET=your_secure_64_character_jwt_secret_key_here_replace_with_actual_secret
+PORT=10000
+FRONTEND_URL=https://your-vercel-app.vercel.app
+```
+
+**📝 Environment Variable Notes:**uction
+MONGODB_URI=mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@YOUR_CLUSTER.mongodb.net/taskboard?retryWrites=true&w=majority&appName=Cluster0
+JWT_SECRET=your_secure_64_character_jwt_secret_key_here_replace_with_actual_secret
+PORT=10000
+FRONTEND_URL=https://your-vercel-app.vercel.app
+```
+
+**📝 Environment Variable Notes:**
+- **MONGODB_URI**: Replace with your actual MongoDB Atlas connection string
+- **JWT_SECRET**: Replace with your secure 128-character secret
+- **PORT**: Must be 10000 (Render requirement)
+- **FRONTEND_URL**: Update with actual Vercel URL after frontend deployment
+
+**🚨 SECURITY**: Never commit real credentials to git. Use placeholders in documentation. Step-by-Step Deployment Process
 
 ### **1. Create Web Service on Render**
 
@@ -29,8 +51,8 @@ After service creation, go to **Environment** tab and add:
 
 ```env
 NODE_ENV=production
-MONGODB_URI=mongodb+srv://user:avkashpassword@cluster0.z8kqu.mongodb.net/taskboard?retryWrites=true&w=majority&appName=Cluster0
-JWT_SECRET=21ac03920f7f6acb3498695c0348c59f4de342572838430d8bc75685e7e89dd717eac0831dfba6998a4f78eae362752bc3ee3b68bd0d0f9adb238d48703d5e526
+MONGODB_URI=mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@YOUR_CLUSTER.mongodb.net/taskboard?retryWrites=true&w=majority&appName=Cluster0
+JWT_SECRET=your_secure_jwt_secret_replace_with_actual_secret
 PORT=10000
 FRONTEND_URL=https://your-vercel-app.vercel.app
 ```

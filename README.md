@@ -112,6 +112,22 @@ npm run dev
 - **Frontend**: http://localhost:5173
 - **Backend API**: http://localhost:5000
 
+## 🔑 Demo Credentials
+
+Use these credentials to test the application with pre-configured users:
+
+### Admin User
+- **Name**: Admin User
+- **Email**: admin@taskboard.com
+- **Password**: AdminPass123!
+
+### Demo User
+- **Name**: Swapnil Kale
+- **Email**: swapnilkale1411@gmail.com
+- **Password**: swapnil@kale
+
+> **Note**: The admin user has full access to user management, task oversight, and administrative features. The demo user has standard member permissions for task management and collaboration.
+
 ## ⚙️ Environment Configuration
 
 ### Backend Environment Variables (.env)

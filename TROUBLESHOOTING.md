@@ -80,10 +80,19 @@ npm run build
 3. Check network access allows 0.0.0.0/0
 
 ### Issue: CORS errors in browser
-**Solution**: Update FRONTEND_URL in Render:
+**Problem**: `Access-Control-Allow-Origin header is present on the requested resource`
+**Solution**: ✅ **CURRENT ISSUE** - Update Render environment variables
 1. Go to Render dashboard → Your service → Environment
-2. Set FRONTEND_URL to your Vercel URL
-3. Redeploy service
+2. Update FRONTEND_URL to your actual Vercel URL:
+   ```env
+   FRONTEND_URL=https://real-time-task-board-e098iulss-swapsdotdevs-projects.vercel.app
+   ```
+3. Redeploy service: Manual Deploy → Deploy Latest Commit
+4. Test API calls from frontend
+
+### Issue: Backend shows "Error: Not allowed by CORS"
+**Problem**: Backend rejects requests from frontend domain
+**Solution**: Same as above - update FRONTEND_URL environment variable
 
 ## Vercel Deployment Issues
 
