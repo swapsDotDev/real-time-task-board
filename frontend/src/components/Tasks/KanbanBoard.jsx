@@ -123,24 +123,31 @@ const KanbanBoard = () => {
 
   const handleDragEnd = async (event) => {
   const { active, over } = event;
-  setActiveTask(null);
 
-  if (!over || active.id === over.id) return; // Nothing changed
+  // If nothing changed, clear overlay and exit
+  if (!over || active.id === over.id) {
+    setActiveTask(null);
+    return;
+  }
 
   const activeTask = allTasks.find(t => t._id === active.id);
   const newStatus = over.id;
 
   // Only update if the status is different
   if (columns.some(col => col.id === newStatus) && activeTask.status !== newStatus) {
-  try {
-    await moveTask(active.id, newStatus);
-    await fetchBoardData(); // refresh data after move
-    toast.success(`Task moved to ${newStatus}`);
-  } catch (error) {
-    console.error('Failed to move task:', error);
-    toast.error('Failed to move task');
+    try {
+      // Keep the DragOverlay visible until the optimistic update + refresh completes
+      await moveTask(active.id, newStatus);
+      await fetchBoardData(); // refresh data after move
+      //toast.success(`Task moved to ${newStatus}`);
+    } catch (error) {
+      console.error('Failed to move task:', error);
+      toast.error('Failed to move task');
+    }
   }
-}
+
+  // Clear active task after processing so the overlay doesn't disappear too early
+  setActiveTask(null);
 };
 
 
