@@ -23,7 +23,9 @@ const TaskCard = ({ task, onEdit, onDelete, onComment }) => {
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    opacity: isDragging ? 0.5 : 1,
+    // While dragging we want the overlay preview to be visible and the original
+    // element to be hidden to prevent seeing it in the source column briefly.
+    opacity: isDragging ? 0 : 1,
   };
 
   // Priority colors
