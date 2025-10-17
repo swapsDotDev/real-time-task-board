@@ -142,8 +142,8 @@ const Login = () => {
         <div className="mt-6 p-4 bg-blue-50 rounded-lg">
           <h3 className="text-sm font-medium text-blue-900 mb-2">Demo Accounts:</h3>
           <div className="space-y-1 text-xs text-blue-700">
-            <div>Admin: admin@taskboard.com / password123</div>
-            <div>Member: member@taskboard.com / password123</div>
+            <div>Admin: admin@taskboard.com / AdminPass123!</div>
+            <div>Member: swapnilkale1411@gmail.com / swapnil@kale</div>
           </div>
         </div>
       </div>
